@@ -7,26 +7,12 @@ Lecteur::Lecteur()
 
 void Lecteur::avancer()
 {
-    if(_posImageCourante == nbImages()-1)
-    {
-
-        _posImageCourante = 1;
-    }
-    else {
-        _posImageCourante += 1;
-    }
+    _posImageCourante=(_posImageCourante+1) %nbImages();
 }
 
 void Lecteur::reculer()
 {
-    if(_posImageCourante == 1)
-    {
-
-        _posImageCourante = nbImages()-1;
-    }
-    else {
-        _posImageCourante -= 1;
-    }
+    _posImageCourante=(_posImageCourante-1) %nbImages();
 
 }
 
@@ -62,8 +48,19 @@ void Lecteur::chargerDiaporama()
 
 
      // trier le contenu du diaporama par ordre croissant selon le rang de l'image dans le diaporama
-     triBulle();
-	 // A FAIRE
+    //TRAITEMENT
+    Image* copieImageParcourue;
+    for (unsigned int i = 0 ; i < nbImages() - 1; i++) {
+        for (unsigned int j = 0; j < nbImages() - 1; j++) {
+            if ( _diaporama[j]->getRang() > _diaporama[j+1]->getRang() )
+            {
+                //Echanger les images
+                copieImageParcourue = _diaporama[j];
+                _diaporama[j] = _diaporama[j+1];
+                _diaporama[j+1] = copieImageParcourue;
+            }
+        }
+    }
 	 
      _posImageCourante = 0;
 
@@ -136,19 +133,6 @@ Image *Lecteur::imageCourante()
 unsigned int Lecteur::numDiaporamaCourant()
 {
     return _numDiaporamaCourant;
-}
-
-void Lecteur::triBulle()
-{
-    //TRAITEMENT
-    for (unsigned int i = 0 ; i < nbImages() - 1; i++) {
-        for (unsigned int j = 0; j < nbImages() - 1; j++) {
-            if ( _diaporama[j]->getRang() > _diaporama[j+1]->getRang() )
-            {
-                echanger( _diaporama[j],_diaporama[j+1] );
-            }
-        }
-    }
 }
 
 
