@@ -16,9 +16,37 @@ public:
     ~MainWindow();
 
 public slots:
+
+    //Déclaration des boutons
+
     void avancer();
 
     void reculer();
+
+    void lancerDiapo();
+
+    void arreterDiapo();
+
+    void cb_cat1();
+
+    void cb_cat2();
+
+    void cb_cat3();
+
+    //Déclaration des éléments du menu
+
+    void chargerDiapo();
+
+    void changerVitesse();
+
+    void enleverDiapo();
+
+    void changerCategorie();
+
+    void quitter();
+
+    void aPropos();
+
 
 private:
     Ui::MainWindow *ui;
