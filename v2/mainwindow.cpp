@@ -13,13 +13,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Connexion des boutons
 
-    QObject::connect(ui->suivant,SIGNAL(clicked()),this,SLOT(avancer()));
+    QObject::connect(ui->b_suivant,SIGNAL(clicked()),this,SLOT(avancer()));
 
-    QObject::connect(ui->precedent,SIGNAL(clicked()),this,SLOT(reculer()));
+    QObject::connect(ui->b_precedent,SIGNAL(clicked()),this,SLOT(reculer()));
 
-    QObject::connect(ui->lancerDiapo,SIGNAL(clicked()),this,SLOT(lancerDiapo()));
+    QObject::connect(ui->b_lancerDiapo,SIGNAL(clicked()),this,SLOT(lancerDiapo()));
 
-    QObject::connect(ui->arreterDiapo,SIGNAL(clicked()),this,SLOT(arreterDiapo()));
+    QObject::connect(ui->b_arreterDiapo,SIGNAL(clicked()),this,SLOT(arreterDiapo()));
 
     QObject::connect(ui->cb_cat1,SIGNAL(clicked(bool)),this,SLOT(cb_cat1(bool)));
 
@@ -29,19 +29,26 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Connexion des éléments du menu
 
-    QObject::connect(ui->chargerDiapo,SIGNAL(triggered()),this,SLOT(chargerDiapo()));
+    QObject::connect(ui->a_chargerDiapo,SIGNAL(triggered()),this,SLOT(chargerDiapo()));
 
-    QObject::connect(ui->changerVitesse,SIGNAL(triggered()),this,SLOT(changerVitesse()));
+    QObject::connect(ui->a_changerVitesse,SIGNAL(triggered()),this,SLOT(changerVitesse()));
 
-    QObject::connect(ui->enleverDiapo,SIGNAL(triggered()),this,SLOT(enleverDiapo()));
+    QObject::connect(ui->a_enleverDiapo,SIGNAL(triggered()),this,SLOT(enleverDiapo()));
 
-    QObject::connect(ui->quitter,SIGNAL(triggered()),this,SLOT(close()));
+    QObject::connect(ui->a_quitter,SIGNAL(triggered()),this,SLOT(close()));
 
-    QObject::connect(ui->aPropos,SIGNAL(triggered()),this,SLOT(aPropos()));
-
-
+    QObject::connect(ui->a_aPropos,SIGNAL(triggered()),this,SLOT(aPropos()));
 
 
+
+    ui->l_rangImage->setText("1");
+    ui->l_nbImage->setText("6");
+    ui->l_mode->setText("manuel");
+    ui->l_titre->setText("Les trois petits cochons");
+    ui->l_titreDiapo->setText("Dessin Animé");
+    ui->cb_cat1->setText("Animal");
+    ui->cb_cat2->setText("Personne");
+    ui->cb_cat3->setText("x");
 
 }
 
@@ -55,12 +62,15 @@ MainWindow::~MainWindow()
 void MainWindow::avancer()
 {
     qDebug()<< "avancer d'une image";
+    ui->l_rangImage->setText("2");
+    ui->l_titre->setText("Blanche neige");
 }
 
 void MainWindow::reculer()
 {
     qDebug()<< "reculer d'une image";
-
+    ui->l_rangImage->setText("6");
+    ui->l_titre->setText("Harry Potter");
 }
 
 void MainWindow::lancerDiapo()

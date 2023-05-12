@@ -17,9 +17,6 @@ public:
     Image* imageCourante();     // retourne le pointeur vers l'image courante
     unsigned int numDiaporamaCourant();
 
-    //tri bulle
-    void triBulle();
-    void echanger(Image*,Image*);
 
 private:
     unsigned _numDiaporamaCourant;   // numéro du diaporama courant, par défaut 0
