@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>685</width>
-    <height>507</height>
+    <width>454</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -76,7 +76,7 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>128</width>
+          <width>248</width>
           <height>18</height>
          </size>
         </property>
@@ -99,7 +99,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>cartesDisney/Disney_0.png</pixmap>
+         <pixmap>cartesDisney/Disney_tapis.gif</pixmap>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -113,7 +113,7 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>128</width>
+          <width>278</width>
           <height>20</height>
          </size>
         </property>
@@ -282,7 +282,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>685</width>
+     <width>454</width>
      <height>26</height>
     </rect>
    </property>

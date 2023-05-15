@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "lecteur.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -46,5 +47,11 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+    Lecteur* L = new Lecteur();
+    QString rang_Image;
+    QString nbImage;
+    QString titreImage;
+    QString cheminImage;
+
 };
 #endif // MAINWINDOW_H

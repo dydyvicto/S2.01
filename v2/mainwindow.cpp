@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "QMessageBox"
+#include <QTimer>
 
 #include "lecteur.h"
 #include "image.h"
@@ -41,14 +42,24 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-    ui->l_rangImage->setText("1");
-    ui->l_nbImage->setText("6");
-    ui->l_mode->setText("manuel");
-    ui->l_titre->setText("Les trois petits cochons");
-    ui->l_titreDiapo->setText("Dessin Animé");
-    ui->cb_cat1->setText("Animal");
-    ui->cb_cat2->setText("Personne");
-    ui->cb_cat3->setText("x");
+    //INITIALISER LE PREMIER AFFICHAGE
+    // : l'image
+    ui->l_image->setPixmap(QPixmap("F:/Documents/S2.01_dev_appli/S2.01-master/v2/cartesDisney/Disney_tapis.gif"));
+
+    // : boutons
+    if (L->numDiaporamaCourant()==0)
+    {
+        ui->b_suivant->setEnabled(false);
+        ui->b_precedent->setEnabled(false);
+        ui->cb_cat1->setEnabled(false);
+        ui->cb_cat2->setEnabled(false);
+        ui->cb_cat3->setEnabled(false);
+        ui->b_arreterDiapo->setEnabled(false);
+        ui->b_lancerDiapo->setEnabled(false);
+    }
+
+
+
 
 }
 
@@ -62,15 +73,39 @@ MainWindow::~MainWindow()
 void MainWindow::avancer()
 {
     qDebug()<< "avancer d'une image";
-    ui->l_rangImage->setText("2");
-    ui->l_titre->setText("Blanche neige");
+
+    L->avancer();
+
+
+    //MISE A JOUR
+
+    //mise a jour du rang de l'image
+    rang_Image.setNum(L->imageCourante()->getRang());
+    ui->l_rangImage->setText(rang_Image);
+    //mise a jour du titre de l'image
+    titreImage = QString::fromStdString(L->imageCourante()->getTitre());
+    ui->l_titre->setText(titreImage);
+    //mise a jour du chemin de l'image
+    cheminImage = QString::fromStdString(L->imageCourante()->getChemin());
+    ui->l_image->setPixmap(QPixmap(cheminImage));
 }
 
 void MainWindow::reculer()
 {
     qDebug()<< "reculer d'une image";
-    ui->l_rangImage->setText("6");
-    ui->l_titre->setText("Harry Potter");
+    L->reculer();
+
+    //MISE A JOUR
+
+    //mise a jour du rang de l'image
+    rang_Image.setNum(L->imageCourante()->getRang());
+    ui->l_rangImage->setText(rang_Image);
+    //mise a jour du titre de l'image
+    titreImage = QString::fromStdString(L->imageCourante()->getTitre());
+    ui->l_titre->setText(titreImage);
+    //mise a jour du chemin de l'image
+    cheminImage = QString::fromStdString(L->imageCourante()->getChemin());
+    ui->l_image->setPixmap(QPixmap(cheminImage));
 }
 
 void MainWindow::lancerDiapo()
@@ -81,6 +116,7 @@ void MainWindow::lancerDiapo()
 void MainWindow::arreterDiapo()
 {
     qDebug()<< "arrêt du diaporama";
+
 }
 
 void MainWindow::cb_cat1(bool etat_cat1)
@@ -112,6 +148,42 @@ void MainWindow::cb_cat3(bool etat_cat3)
 void MainWindow::chargerDiapo()
 {
     qDebug()<< "changement du diaporama";
+    ui->b_suivant->setEnabled(true);
+    ui->b_precedent->setEnabled(true);
+    ui->cb_cat1->setEnabled(true);
+    ui->cb_cat2->setEnabled(true);
+    ui->cb_cat3->setEnabled(true);
+    ui->b_lancerDiapo->setEnabled(true);
+
+
+
+    //Lancement du diaporama
+    L->changerDiaporama(1);
+
+    //Récupérer le nombre d'images
+    nbImage.setNum(L->nbImages());
+
+    //Récupérer le titre d'image
+    titreImage = QString::fromStdString(L->imageCourante()->getTitre());
+
+    //Récupérer le rang de l'image
+    rang_Image.setNum(L->imageCourante()->getRang());
+    ui->l_nbImage->setText(nbImage);
+
+    //QString cheminImage;
+    cheminImage = QString::fromStdString(L->imageCourante()->getChemin());
+
+
+
+    //Initialiser l'affichage ==>> faire une fonction de mise a jour des éléments
+    ui->l_rangImage->setText(rang_Image);
+    ui->l_mode->setText("manuel");
+    ui->l_titre->setText(titreImage);
+    ui->l_titreDiapo->setText("Diapo " + QString::number(L->numDiaporamaCourant()));
+    ui->cb_cat1->setText("Animal");
+    ui->cb_cat2->setText("Personne");
+    ui->cb_cat3->setText("Objet");
+    ui->l_image->setPixmap(QPixmap(cheminImage));
 }
 
 void MainWindow::changerVitesse()
@@ -122,6 +194,25 @@ void MainWindow::changerVitesse()
 void MainWindow::enleverDiapo()
 {
     qDebug()<< "enlèvement du diapoama";
+    L->changerDiaporama(0);
+
+    ui->b_suivant->setEnabled(false);
+    ui->b_precedent->setEnabled(false);
+    ui->cb_cat1->setEnabled(false);
+    ui->cb_cat2->setEnabled(false);
+    ui->cb_cat3->setEnabled(false);
+    ui->b_lancerDiapo->setEnabled(false);
+
+
+    ui->l_image->setPixmap(QPixmap("F:/Documents/S2.01_dev_appli/S2.01-master/v2/cartesDisney/Disney_tapis.gif"));
+    ui->l_titre->setText("Titre");
+    ui->l_titreDiapo->setText("TitreDiapo");
+    ui->l_rangImage->setText("Rang");
+    ui->l_nbImage->setText("nbImage");
+    ui->cb_cat1->setText("Categorie1");
+    ui->cb_cat2->setText("Categorie2");
+    ui->cb_cat3->setText("Categorie3");
+    ui->l_mode->setText("Mode");
 }
 
 void MainWindow::aPropos()
