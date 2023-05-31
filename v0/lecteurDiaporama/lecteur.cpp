@@ -49,7 +49,7 @@ void Lecteur::chargerDiaporama()
 
      // trier le contenu du diaporama par ordre croissant selon le rang de l'image dans le diaporama
     //TRAITEMENT
-    Image* copieImageParcourue;
+    Image* copieImageParcourue;     //servant à l'échange des images
     for (unsigned int i = 0 ; i < nbImages() - 1; i++) {
         for (unsigned int j = 0; j < nbImages() - 1; j++) {
             if ( _diaporama[j]->getRang() > _diaporama[j+1]->getRang() )

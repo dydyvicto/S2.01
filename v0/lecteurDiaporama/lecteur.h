@@ -18,7 +18,7 @@ public:
     unsigned int numDiaporamaCourant();
 
     // pour tri bulle
-    void echanger(Image*,Image*);
+    void echanger(Image* image1,Image* image2);
 
 private:
     unsigned _numDiaporamaCourant;   // numéro du diaporama courant, par défaut 0
