@@ -134,4 +134,3 @@ unsigned int Lecteur::numDiaporamaCourant()
 {
     return _numDiaporamaCourant;
 }
-

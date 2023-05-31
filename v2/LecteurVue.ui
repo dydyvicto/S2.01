@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>LecteurVue</class>
+ <widget class="QMainWindow" name="LecteurVue">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -22,10 +22,10 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
-  <widget class="QWidget" name="centralwidget">
+  <widget class="QWidget" name="W_Principal">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QHBoxLayout" name="HL_titreDiapo_lancer_arreter">
       <item>
        <widget class="QLabel" name="l_titreDiapo">
         <property name="font">
@@ -68,7 +68,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <layout class="QHBoxLayout" name="HL_image">
       <item>
        <spacer name="horizontalSpacer_5">
         <property name="orientation">
@@ -122,7 +122,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="HL_titre_et_avancer_reculer">
       <item>
        <widget class="QLabel" name="l_titre">
         <property name="font">
@@ -181,7 +181,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <layout class="QHBoxLayout" name="HL_informations_image">
       <item>
        <widget class="QLabel" name="l_mode">
         <property name="text">
@@ -203,7 +203,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox">
+       <widget class="QGroupBox" name="GB_categorie">
         <property name="title">
          <string>Catégories</string>
         </property>
@@ -249,7 +249,7 @@
        </spacer>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <layout class="QHBoxLayout" name="HL_positionnement_rang_image">
         <item>
          <widget class="QLabel" name="l_rangImage">
           <property name="text">
