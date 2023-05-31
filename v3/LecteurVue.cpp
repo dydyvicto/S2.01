@@ -1,44 +1,38 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "LecteurVue.h"
+#include "ui_LecteurVue.h"
 #include "QMessageBox"
 #include <QTimer>
 
 #include "lecteur.h"
 #include "image.h"
 
-MainWindow::MainWindow(QWidget *parent)
+LecteurVue::LecteurVue(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::LecteurVue)
 {
     ui->setupUi(this);
     _timer = new QTimer(this);
+
+    //Connexion du Timer
+
     connect(_timer,SIGNAL(timeout()),this,SLOT(avancer()));
+
     //Connexion des boutons
 
     QObject::connect(ui->b_suivant,SIGNAL(clicked()),this,SLOT(avancer()));
-
     QObject::connect(ui->b_precedent,SIGNAL(clicked()),this,SLOT(reculer()));
-
     QObject::connect(ui->b_lancerDiapo,SIGNAL(clicked()),this,SLOT(lancerDiapo()));
-
     QObject::connect(ui->b_arreterDiapo,SIGNAL(clicked()),this,SLOT(arreterDiapo()));
-
     QObject::connect(ui->cb_cat1,SIGNAL(clicked(bool)),this,SLOT(cb_cat1(bool)));
-
     QObject::connect(ui->cb_cat2,SIGNAL(clicked(bool)),this,SLOT(cb_cat2(bool)));
-
     QObject::connect(ui->cb_cat3,SIGNAL(clicked(bool)),this,SLOT(cb_cat3(bool)));
 
     //Connexion des éléments du menu
 
     QObject::connect(ui->a_chargerDiapo,SIGNAL(triggered()),this,SLOT(chargerDiapo()));
-
     QObject::connect(ui->a_changerVitesse,SIGNAL(triggered()),this,SLOT(changerVitesse()));
-
     QObject::connect(ui->a_enleverDiapo,SIGNAL(triggered()),this,SLOT(enleverDiapo()));
-
     QObject::connect(ui->a_quitter,SIGNAL(triggered()),this,SLOT(close()));
-
     QObject::connect(ui->a_aPropos,SIGNAL(triggered()),this,SLOT(aPropos()));
 
 
@@ -60,18 +54,20 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
 
+    ui->a_changerVitesse->setEnabled(false);
 
+    ui->a_enleverDiapo->setEnabled(false);
 
 }
 
-MainWindow::~MainWindow()
+LecteurVue::~LecteurVue()
 {
     delete ui;
 }
 
 //Définition des boutons
 
-void MainWindow::avancer()
+void LecteurVue::avancer()
 {
     qDebug()<< "avancer d'une image";
 
@@ -94,7 +90,7 @@ void MainWindow::avancer()
 
 }
 
-void MainWindow::reculer()
+void LecteurVue::reculer()
 {
     qDebug()<< "reculer d'une image";
     L->reculer();
@@ -115,34 +111,60 @@ void MainWindow::reculer()
 
 }
 
-void MainWindow::lancerDiapo()
+void LecteurVue::lancerDiapo()
 {
     qDebug()<< "lancement du diaporama";
+
+    //lancer à partir de la premiere image
+    if(L->imageCourante()->getRang()!=1)
+    {
+        for(unsigned int i = L->imageCourante()->getRang() ; i < L->nbImages()+1 ; i++){
+            avancer();
+        }
+    }
+
+
+
+    //mise a jour de l'état des éléments graphiques
     ui->l_mode->setText("Automatique");
+
     ui->b_arreterDiapo->setEnabled(true);
     ui->b_lancerDiapo->setEnabled(true);
+
+    ui->a_changerVitesse->setEnabled(false);
+    ui->a_enleverDiapo->setEnabled(false);
+    ui->a_chargerDiapo->setEnabled(false);
+
     //lancer le timer
     _timer->setSingleShot(false);
 
 
     if(!_timer->isActive()){
-        _timer->start(1000);
+        _timer->start(_vitesseDefil);
     }
 
 
 }
 
-void MainWindow::arreterDiapo()
+void LecteurVue::arreterDiapo()
 {
     qDebug()<< "arrêt du diaporama";
 
     //arret du mode auto
     _timer->stop();
+
+    //mise a jour de l'état des éléments graphiques
     ui->l_mode->setText("Manuel");
-    ui->b_arreterDiapo->setEnabled(true);
+
+    ui->b_arreterDiapo->setEnabled(false);
+
+    ui->a_changerVitesse->setEnabled(true);
+    ui->a_enleverDiapo->setEnabled(true);
+    ui->a_chargerDiapo->setEnabled(true);
+
 }
 
-void MainWindow::cb_cat1(bool etat_cat1)
+void LecteurVue::cb_cat1(bool etat_cat1)
 {
     if(etat_cat1)
     {
@@ -150,7 +172,7 @@ void MainWindow::cb_cat1(bool etat_cat1)
     }
 }
 
-void MainWindow::cb_cat2(bool etat_cat2)
+void LecteurVue::cb_cat2(bool etat_cat2)
 {
     if(etat_cat2)
     {
@@ -158,7 +180,7 @@ void MainWindow::cb_cat2(bool etat_cat2)
     }
 }
 
-void MainWindow::cb_cat3(bool etat_cat3)
+void LecteurVue::cb_cat3(bool etat_cat3)
 {
     if(etat_cat3)
     {
@@ -168,15 +190,21 @@ void MainWindow::cb_cat3(bool etat_cat3)
 
 //Définition des éléments du menu
 
-void MainWindow::chargerDiapo()
+void LecteurVue::chargerDiapo()
 {
     qDebug()<< "changement du diaporama";
+
+    //mise a jour de l'état des éléments graphiques
     ui->b_suivant->setEnabled(true);
     ui->b_precedent->setEnabled(true);
+    ui->b_lancerDiapo->setEnabled(true);
+
     ui->cb_cat1->setEnabled(true);
     ui->cb_cat2->setEnabled(true);
     ui->cb_cat3->setEnabled(true);
-    ui->b_lancerDiapo->setEnabled(true);
+
+    ui->a_changerVitesse->setEnabled(true);
+    ui->a_enleverDiapo->setEnabled(false);
 
 
 
@@ -207,39 +235,58 @@ void MainWindow::chargerDiapo()
     ui->cb_cat2->setText("Personne");
     ui->cb_cat3->setText("Objet");
     ui->l_image->setPixmap(QPixmap(cheminImage));
+    ui->b_arreterDiapo->setEnabled(false);
+
 }
 
-void MainWindow::changerVitesse()
+void LecteurVue::changerVitesse()
 {
     qDebug()<< "changement de la vitesse";
+
+    //changer la vitesse manuellement
+    if (_vitesseDefil == 1000){
+        _vitesseDefil = 5000;
+    }else{
+        _vitesseDefil = 1000;
+    }
+
 }
 
-void MainWindow::enleverDiapo()
+void LecteurVue::enleverDiapo()
 {
     qDebug()<< "enlèvement du diapoama";
     L->changerDiaporama(0);
 
+    //mise a jour de l'état des éléments graphiques
     ui->b_suivant->setEnabled(false);
     ui->b_precedent->setEnabled(false);
+    ui->b_lancerDiapo->setEnabled(false);
+    ui->b_arreterDiapo->setEnabled(false);
+
     ui->cb_cat1->setEnabled(false);
     ui->cb_cat2->setEnabled(false);
     ui->cb_cat3->setEnabled(false);
-    ui->b_lancerDiapo->setEnabled(false);
 
+    ui->a_changerVitesse->setEnabled(false);
+
+
+    //Restaurer l'affichage de base
 
     ui->l_image->setPixmap(QPixmap("F:/Documents/S2.01_dev_appli/S2.01-master/v2/cartesDisney/Disney_tapis.gif"));
     ui->l_titre->setText("Titre");
     ui->l_titreDiapo->setText("TitreDiapo");
     ui->l_rangImage->setText("Rang");
     ui->l_nbImage->setText("nbImage");
+    ui->l_mode->setText("Mode");
+
     ui->cb_cat1->setText("Categorie1");
     ui->cb_cat2->setText("Categorie2");
     ui->cb_cat3->setText("Categorie3");
-    ui->l_mode->setText("Mode");
+
 }
 
-void MainWindow::aPropos()
+void LecteurVue::aPropos()
 {
-    QMessageBox::information(this, "A propos", "Bonjour, ceci est la version 2 du lecteur de diaporama,"
+    QMessageBox::information(this, "A propos", "Bonjour, ceci est la version 3 du lecteur de diaporama,"
                              "créée le 04/05/2023 par Dylan Victoras, Yannis Duvignau et Nicolas Conguisti");
 }
