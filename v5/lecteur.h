@@ -3,6 +3,9 @@
 #include "image.h"
 #include <vector>
 
+#include "database.h"
+
+
 typedef vector<Image*> Diaporama;   // Structure de données contenant les infos sur les images
 
 class Lecteur
@@ -19,6 +22,7 @@ public:
 
 
 private:
+    database* db = new database;
     unsigned _numDiaporamaCourant;   // numéro du diaporama courant, par défaut 0
     Diaporama _diaporama;            // pointeurs vers les images du diaporama
     unsigned int _posImageCourante;  /* position, dans le diaporama,

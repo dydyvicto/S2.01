@@ -39,6 +39,8 @@ void Lecteur::chargerDiaporama()
 
     viderDiaporama();
 
+    db->openDataBase();
+
     //CHARGEMENT DES INFORMATIONS RELATIVES AUX IMAGES A PARTIR DE LA BASE DE DONNEES
 
     QSqlQuery Marequete;
@@ -74,13 +76,13 @@ void Lecteur::chargerDiaporama()
        Dans une version ultérieure, ces données proviendront d'une base de données,
        et correspondront au diaporama choisi */
     Image* imageACharger;
-    imageACharger = new Image(3, "personne", "Blanche Neige", "F:/Documents/IUT/Annee1/S2/S2.01/S2.01-master/v5/cartesDisney/Disney_4.gif");
+    imageACharger = new Image(3, "personne", "Blanche Neige", ":v5/cartesDisney/Disney_4.gif");
     _diaporama.push_back(imageACharger);
-    imageACharger = new Image(2, "personne", "Cendrillon", "F:/Documents/IUT/Annee1/S2/S2.01/S2.01-master/v5/cartesDisney/Disney_21.gif");
+    imageACharger = new Image(2, "personne", "Cendrillon", ":v5/cartesDisney/Disney_21.gif");
     _diaporama.push_back(imageACharger);
-    imageACharger = new Image(4, "animal", "Mickey", "F:/Documents/IUT/Annee1/S2/S2.01/S2.01-master/v5/cartesDisney/Disney_19.gif");
+    imageACharger = new Image(4, "animal", "Mickey", ":v5/cartesDisney/Disney_19.gif");
     _diaporama.push_back(imageACharger);
-    imageACharger = new Image(1, "personne", "Mulan", "F:/Documents/IUT/Annee1/S2/S2.01/S2.01-master/v5/cartesDisney/Disney_24.gif");
+    imageACharger = new Image(1, "personne", "Mulan", ":v5/cartesDisney/Disney_24.gif");
     _diaporama.push_back(imageACharger);
 
 
