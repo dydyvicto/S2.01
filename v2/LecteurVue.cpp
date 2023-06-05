@@ -33,7 +33,7 @@ LecteurVue::LecteurVue(QWidget *parent)
 
     //INITIALISER LE PREMIER AFFICHAGE (initialiser les états des éléments graphiques)
     // : l'image
-    ui->l_image->setPixmap(QPixmap("F:/Documents/S2.01_dev_appli/S2.01-master/v2/cartesDisney/Disney_tapis.gif"));
+    ui->l_image->setPixmap(QPixmap(":/v2/cartesDisney/Disney_tapis.gif"));
 
     // : boutons
     if (L->numDiaporamaCourant()==0)
@@ -225,7 +225,7 @@ void LecteurVue::enleverDiapo()
     ui->a_enleverDiapo->setEnabled(false);
 
 
-    ui->l_image->setPixmap(QPixmap("F:/Documents/S2.01_dev_appli/S2.01-master/v2/cartesDisney/Disney_tapis.gif"));
+    ui->l_image->setPixmap(QPixmap(":/v2/cartesDisney/Disney_tapis.gif"));
     ui->l_titre->setText("Titre");
     ui->l_titreDiapo->setText("TitreDiapo");
     ui->l_rangImage->setText("Rang");
