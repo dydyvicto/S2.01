@@ -19,9 +19,11 @@ public:
     unsigned int numDiaporamaCourant();
 
     QString getTitreDiapo();
+    QString getChemin();
 
 
 private:
+    string chemin;
     QString titreDiapo;
     database* db = new database;
     unsigned _numDiaporamaCourant;   // numéro du diaporama courant, par défaut 0

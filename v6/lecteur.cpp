@@ -50,7 +50,8 @@ void Lecteur::chargerDiaporama()
     viderDiaporama();
 
     //Création d'un chemin prédéfini pour les images
-    string chemin = "F:/Documents/IUT/Annee1/S2/S2.01/S2.01-master/v5/" ;
+    //CE CHEMIN DOIT ETRE MODIFIÉ PAR L'UTILISATEUR
+    chemin = "F:/Downloads/S2.01-master/v6" ;
 
     Dialog_Diaporama *unDipao = new Dialog_Diaporama;
     unDipao->exec();
@@ -204,5 +205,10 @@ unsigned int Lecteur::numDiaporamaCourant()
 QString Lecteur::getTitreDiapo()
 {
     return titreDiapo;
+}
+
+QString Lecteur::getChemin()
+{
+    return QString::fromStdString(chemin);
 }
 

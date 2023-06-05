@@ -37,11 +37,13 @@ LecteurVue::LecteurVue(QWidget *parent)
     QObject::connect(ui->a_quitter,SIGNAL(triggered()),this,SLOT(close()));
     QObject::connect(ui->a_aPropos,SIGNAL(triggered()),this,SLOT(aPropos()));
 
+    //CREATION DU CHEMIN D'ACCES
+    chemin = L->getChemin();
 
 
     //INITIALISER LE PREMIER AFFICHAGE
     // : l'image
-    ui->l_image->setPixmap(QPixmap("F:/Documents/IUT/Annee1/S2/S2.01/S2.01-master/v5/cartesDisney/Disney_tapis.gif"));
+    ui->l_image->setPixmap(QPixmap(chemin + "cartesDisney/Disney_tapis.gif"));
 
     // : boutons
     if (L->numDiaporamaCourant()==0)
@@ -269,7 +271,7 @@ void LecteurVue::enleverDiapo()
     ui->a_chargerDiapo->setEnabled(true);
 
     //Restaurer l'affichage de début
-    ui->l_image->setPixmap(QPixmap("F:/Documents/IUT/Annee1/S2/S2.01/S2.01-master/v5/cartesDisney/Disney_tapis.gif"));
+    ui->l_image->setPixmap(QPixmap(chemin + "cartesDisney/Disney_tapis.gif"));
     ui->l_titre->setText("Titre");
     ui->l_titreDiapo->setText("TitreDiapo");
     ui->l_rangImage->setText("Rang");

@@ -49,6 +49,7 @@ private:
     QTimer *_timer;
     int _vitesseDefil;//vitesse de défilement courant
     QString _nomDiapo; //nom du diaporama
+    QString chemin;
 
 };
 #endif // LECTEURVUE_H
