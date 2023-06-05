@@ -5,7 +5,7 @@
 
 #include <QSqlDatabase>
 
-#define DATABASE_NAME "S2.01"
+#define DATABASE_NAME "S2_01"
 #define CONNECT_TYPE "QODBC"
 
 class database
