@@ -1,0 +1,8 @@
+1- Où déposer le dossier contenant les images?
+Vous pouvez déposer le dossier dans le projet,
+au milieu des fichiers .cpp, .h et .ui.
+
+Pour les versions 1 à 5,
+un fichier ressources est utilisé à cet effet.
+Dans la version 6, c'est la varibable "chemin" située ligne 54
+de Lecteur.cpp.
